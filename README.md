@@ -29,14 +29,14 @@ A Yarn 4 workspaces monorepo with a single root `yarn.lock`:
 
 ### The intentionally vulnerable pins
 
-| Dependency                  | Pinned to | Why it's here                                                  |
-| --------------------------- | --------- | -------------------------------------------------------------- |
-| `mysql2`                    | 3.9.3     | Critical alerts; one security update clears several at once    |
-| `knex`                      | 2.3.0     | SQL injection, single clean fix                                |
-| `luxon`                     | 3.2.0     | ReDoS, small patch bump                                        |
-| `zod`                       | 3.22.2    | One alert fixed by a patch, another that needs a major upgrade |
-| `@aws-sdk/client-s3`        | 3.840.0   | Transitive alerts (fast-xml-parser) that need a parent upgrade |
-| `actions/download-artifact` | v4.1.2    | An alert on a GitHub Actions dependency                        |
+| Dependency                  | Pinned to | Why it's here                                                                                      |
+| --------------------------- | --------- | -------------------------------------------------------------------------------------------------- |
+| `mysql2`                    | 3.9.3     | Critical alerts; one security update clears several at once                                        |
+| `knex`                      | 2.3.0     | SQL injection, single clean fix                                                                    |
+| `luxon`                     | 3.2.0     | ReDoS, small patch bump                                                                            |
+| `zod`                       | 3.22.2    | Two alerts; the lowest version that fixes both is zod 4, so the security update is a major upgrade |
+| `@aws-sdk/client-s3`        | 3.840.0   | Transitive alerts (fast-xml-parser) that need a parent upgrade                                     |
+| `actions/download-artifact` | v4.1.2    | An alert on a GitHub Actions dependency                                                            |
 
 Other dependencies are deliberately a few versions behind (but not vulnerable) so version updates have something to do.
 
@@ -44,12 +44,12 @@ Other dependencies are deliberately a few versions behind (but not vulnerable) s
 
 Fell behind? Check out the branch for the section you're on. Each one is the known-good state at the **end** of that section.
 
-| Section                              | Branch                             | What it adds                                                                                                                                                                         |
-| ------------------------------------ | ---------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| Start (alerts)                       | `main`                             | The vulnerable starting point. No `dependabot.yml`.                                                                                                                                  |
-| Security updates                     | `checkpoint/03-security-updates`   | The fixed versions from merging Dependabot's security PRs (mysql2, knex, luxon, zod 3.22.3, download-artifact). The alerts that need a major or parent upgrade stay open on purpose. |
-| Version updates and `dependabot.yml` | `checkpoint/04-version-updates`    | `.github/dependabot.yml` with schedule, cooldown, groups, ignore rules and a security-patches group, for npm, GitHub Actions and Docker.                                             |
-| Dependabot secrets                   | `checkpoint/05-dependabot-secrets` | A private registry in `dependabot.yml` and `.yarnrc.yml`, and a CI job that needs a secret.                                                                                          |
+| Section                              | Branch                             | What it adds                                                                                                                                                                 |
+| ------------------------------------ | ---------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Start (alerts)                       | `main`                             | The vulnerable starting point. No `dependabot.yml`.                                                                                                                          |
+| Security updates                     | `checkpoint/03-security-updates`   | The result of merging Dependabot's five security PRs (mysql2, knex, luxon, zod 4, download-artifact). The transitive alerts that need a parent upgrade stay open on purpose. |
+| Version updates and `dependabot.yml` | `checkpoint/04-version-updates`    | `.github/dependabot.yml` with schedule, cooldown, groups, ignore rules and a security-patches group, for npm, GitHub Actions and Docker.                                     |
+| Dependabot secrets                   | `checkpoint/05-dependabot-secrets` | A private registry in `dependabot.yml` and `.yarnrc.yml`, and a CI job that needs a secret.                                                                                  |
 
 > [!NOTE]
 > `checkpoint/05-dependabot-secrets` expects two secrets in your copy, both under **Settings** → **Secrets and variables**. Any placeholder value works for the demo.
