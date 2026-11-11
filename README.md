@@ -44,12 +44,18 @@ Other dependencies are deliberately a few versions behind (but not vulnerable) s
 
 Fell behind? Check out the branch for the section you're on. Each one is the known-good state at the **end** of that section.
 
-| Section                              | Branch                             |
-| ------------------------------------ | ---------------------------------- |
-| Start (alerts)                       | `main`                             |
-| Security updates                     | `checkpoint/03-security-updates`   |
-| Version updates and `dependabot.yml` | `checkpoint/04-version-updates`    |
-| Dependabot secrets                   | `checkpoint/05-dependabot-secrets` |
+| Section                              | Branch                             | What it adds                                                                                                                                                                         |
+| ------------------------------------ | ---------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Start (alerts)                       | `main`                             | The vulnerable starting point. No `dependabot.yml`.                                                                                                                                  |
+| Security updates                     | `checkpoint/03-security-updates`   | The fixed versions from merging Dependabot's security PRs (mysql2, knex, luxon, zod 3.22.3, download-artifact). The alerts that need a major or parent upgrade stay open on purpose. |
+| Version updates and `dependabot.yml` | `checkpoint/04-version-updates`    | `.github/dependabot.yml` with schedule, cooldown, groups, ignore rules and a security-patches group, for npm, GitHub Actions and Docker.                                             |
+| Dependabot secrets                   | `checkpoint/05-dependabot-secrets` | A private registry in `dependabot.yml` and `.yarnrc.yml`, and a CI job that needs a secret.                                                                                          |
+
+> [!NOTE]
+> `checkpoint/05-dependabot-secrets` expects two secrets in your copy, both under **Settings** → **Secrets and variables**. Any placeholder value works for the demo.
+>
+> - `INTEGRATION_API_TOKEN`: add it under **Actions** _and_ under **Dependabot**.
+> - `DEPENDABOT_PACKAGES_TOKEN`: add it under **Dependabot**.
 
 To reset your copy's `main` to a checkpoint:
 
