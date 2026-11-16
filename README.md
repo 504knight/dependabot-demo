@@ -5,6 +5,8 @@
 
 This is the hands-on repo for an internal walkthrough of GitHub Dependabot: alerts, security updates, version updates with `dependabot.yml`, and Dependabot secrets for private registries. It mirrors the shape of a typical TypeScript product repo, but it contains no real application code.
 
+**Following the session or doing it on your own? Start with the [lab guide](LAB.md).**
+
 ## Get your own copy
 
 1. Click **Use this template** → **Create a new repository**.
