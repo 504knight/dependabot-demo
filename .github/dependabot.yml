@@ -1,10 +1,21 @@
 # Dependabot configuration, modeled on the production setup used in our CDK projects.
 # Docs: https://docs.github.com/en/code-security/reference/supply-chain-security/dependabot-options-reference
 version: 2
+
+# Credentials Dependabot uses to reach private registries. The token is a Dependabot secret
+# (Settings > Secrets and variables > Dependabot), not an Actions secret.
+registries:
+  github-packages:
+    type: npm-registry
+    url: https://npm.pkg.github.com
+    token: ${{secrets.DEPENDABOT_PACKAGES_TOKEN}}
+
 updates:
   # One entry covers the whole Yarn workspace: root package, portal/ and the single root yarn.lock.
   - package-ecosystem: 'npm'
     directory: '/'
+    registries:
+      - github-packages
     schedule:
       interval: 'weekly'
       day: 'monday'
